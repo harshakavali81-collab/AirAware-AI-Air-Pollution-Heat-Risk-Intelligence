@@ -15,3 +15,8 @@
 - On real data, verify licensing, daily aggregation period, timestamp timezone and station coverage.
 
 Sources: [Microsoft PBIP projects](https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-overview), [Microsoft PBIR format](https://learn.microsoft.com/en-us/power-bi/developer/embedded/projects-enhanced-report-format).
+
+
+## Automated source-integrity check
+
+`python -m scripts.verify_powerbi_project` checks PBIP/PBIR JSON, page ordering, required semantic fields and visual measure references in CI. These checks **cannot test Power BI Desktop rendering, data refresh or PBIX export**. See [release acceptance](../docs/RELEASE_ACCEPTANCE.md).

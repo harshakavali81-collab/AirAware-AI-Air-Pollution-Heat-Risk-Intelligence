@@ -133,3 +133,10 @@ Created as an original educational portfolio application. The visual design and 
 - Full-stack public hosting remains an **external-account action**. [See deployment steps](docs/FULLSTACK_DEPLOY.md); provide your own Render access and OpenAQ key in the platform's private settings. Power BI Desktop is still required to validate the editable PBIP and save a native PBIX.
 
 **Verified research result (not current India):** [Real historical Beijing PM2.5 model-versus-baseline comparison](docs/HISTORICAL_BENCHMARK_RESULTS.md) — 12 stations, 10 folds; persistence had lower mean MAE than Random Forest. [Reproducible evaluation JSON](reports/uci_beijing_historical.json).
+
+
+## Release acceptance / deployment & Power BI validation (2026-10-28)
+
+- [Production release acceptance checklist](docs/RELEASE_ACCEPTANCE.md) explains remaining Render activation, private OpenAQ key, India provider verification, scientific model review and Power BI Desktop `.pbix` export. **Public full-stack and live India deployment remain unverified.**
+- `python -m scripts.verify_powerbi_project` checks PBIP structure (2 pages, 5 visuals, required data columns); it **cannot replace Power BI Desktop verification**.
+- [Manual production smoke workflow](.github/workflows/production-smoke.yml) tests a real HTTPS deployment URL after the owner activates hosting. It is not proof of a deployed host.

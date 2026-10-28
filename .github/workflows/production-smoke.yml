@@ -1,0 +1,35 @@
+name: Manual public production smoke test
+on:
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: 'Your already-deployed public HTTPS site origin, e.g. https://your-service.onrender.com'
+        required: true
+        type: string
+      require_live:
+        description: 'Fail unless /api/latest returns nonempty LIVE readings (with provider credentials configured on host)'
+        required: true
+        default: false
+        type: boolean
+permissions:
+  contents: read
+jobs:
+  public-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'httpx>=0.27,<1'
+      - name: Verify HTTPS site only after owner activates deployment
+        env:
+          SITE_URL: ${{ inputs.site_url }}
+          REQUIRE_LIVE: ${{ inputs.require_live }}
+        run: |
+          if [ "$REQUIRE_LIVE" = "true" ]; then
+            python -m scripts.check_deployment --url "$SITE_URL" --require-live
+          else
+            python -m scripts.check_deployment --url "$SITE_URL"
+          fi
