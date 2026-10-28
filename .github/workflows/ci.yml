@@ -22,3 +22,20 @@ jobs:
         with: {node-version: '22'}
       - run: npm install --no-audit --no-fund
       - run: npm run build
+
+  build-fullstack-container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build production React + API image
+        run: docker build --progress=plain -t airaware-ci .
+      - name: Verify fullstack health and homepage
+        run: |
+          docker run -d --name airaware-ci-check -p 8000:8000 airaware-ci
+          for n in $(seq 1 30); do
+            if curl -fsS http://localhost:8000/api/health > /tmp/airaware-health.json; then break; fi
+            sleep 2
+          done
+          curl -fsS http://localhost:8000/api/health
+          curl -fsS http://localhost:8000/ | grep -qi '<html'
+          docker rm -f airaware-ci-check

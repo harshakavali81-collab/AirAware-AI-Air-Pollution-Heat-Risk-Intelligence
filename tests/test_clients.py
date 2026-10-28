@@ -41,3 +41,15 @@ def test_openmeteo_current_fields():
     value=current_weather(17.385,78.4867,httpx.Client(transport=httpx.MockTransport(handler)))
     assert value['temperature_c']==30.5 and value['apparent_temperature_c']==35.6
     assert 'grid' in value['source']
+
+
+def test_openaq_daily_paginates_for_long_histories():
+    seen = []
+    def handler(req):
+        page = int(req.url.params['page'])
+        seen.append(page)
+        n = 100 if page == 1 else 17
+        return httpx.Response(200, json={'results':[{'value':page}] * n})
+    c = OpenAQClient('fake-test-key', httpx.Client(transport=httpx.MockTransport(handler)))
+    assert len(c.daily(88, 150)) == 117
+    assert seen == [1,2]

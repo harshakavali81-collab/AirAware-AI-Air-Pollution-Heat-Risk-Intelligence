@@ -29,7 +29,20 @@ class OpenAQClient:
 
     def daily(self, sensor_id: int, days: int = 90):
         end = date.today()
-        return self.get(f"/sensors/{sensor_id}/days", date_from=(end - timedelta(days=days)).isoformat(), date_to=end.isoformat(), limit=100, page=1)
+        # OpenAQ paginates sensor days. Never silently discard older pages,
+        # since doing so would bias chronological backtesting and coverage.
+        results = []
+        page_size = 100
+        for page in range(1, max(2, (days // page_size) + 4)):
+            batch = self.get(
+                f"/sensors/{sensor_id}/days",
+                date_from=(end - timedelta(days=days)).isoformat(),
+                date_to=end.isoformat(), limit=page_size, page=page,
+            )
+            results.extend(batch)
+            if len(batch) < page_size:
+                return results
+        raise AirDataError("OpenAQ pagination limit reached; reduce requested date range")
 
     def latest(self, location_id: int):
         return self.get(f"/locations/{location_id}/latest")
