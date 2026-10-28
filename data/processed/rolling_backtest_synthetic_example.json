@@ -1,0 +1,71 @@
+{
+  "city": "Hyderabad",
+  "evaluated_at_utc": "2026-10-28T07:06:24.796878+00:00",
+  "evaluation_kind": "rolling_origin_one_day_ahead_exploratory",
+  "verification": "offline_statistical_backtest_not_independently_validated",
+  "data_classification": "synthetic_permitted_for_demo",
+  "measurement_units": "\u00b5g/m\u00b3",
+  "observed_days": 120,
+  "calendar_days": 120,
+  "calendar_coverage_pct": 100.0,
+  "stations_in_input": 3,
+  "folds": [
+    {
+      "train_end": "2026-09-04",
+      "test_start": "2026-09-05",
+      "test_end": "2026-09-18",
+      "train_rows": 60,
+      "test_rows": 14,
+      "persistence": {
+        "mae": 3.9721,
+        "rmse": 4.6407
+      },
+      "random_forest": {
+        "mae": 3.5082,
+        "rmse": 4.3066
+      }
+    },
+    {
+      "train_end": "2026-09-18",
+      "test_start": "2026-09-19",
+      "test_end": "2026-10-02",
+      "train_rows": 74,
+      "test_rows": 14,
+      "persistence": {
+        "mae": 3.08,
+        "rmse": 3.7268
+      },
+      "random_forest": {
+        "mae": 2.727,
+        "rmse": 3.3676
+      }
+    },
+    {
+      "train_end": "2026-10-02",
+      "test_start": "2026-10-03",
+      "test_end": "2026-10-16",
+      "train_rows": 88,
+      "test_rows": 14,
+      "persistence": {
+        "mae": 2.376,
+        "rmse": 3.201
+      },
+      "random_forest": {
+        "mae": 1.8813,
+        "rmse": 2.5336
+      }
+    }
+  ],
+  "fold_count": 3,
+  "mean_fold_mae": {
+    "persistence": 3.1427,
+    "random_forest": 2.7055
+  },
+  "candidate_beats_baseline_in_folds": 3,
+  "caveats": [
+    "This is not a regulatory, medical, or emergency warning product.",
+    "Station representativeness, sensors, licensing and timestamps require independent verification.",
+    "Overlapping station coverage, geography and seasonal drift can affect scores.",
+    "A model should not be deployed without independently reviewed out-of-period validation."
+  ]
+}

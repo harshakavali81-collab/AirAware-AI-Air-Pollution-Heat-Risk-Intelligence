@@ -12,5 +12,6 @@ services:
         value: demo
       - key: OPENAQ_API_KEY
         sync: false
+      # Served from one origin: no guessed hostname is hardcoded.
       - key: CORS_ORIGINS
-        value: https://airaware-ai.onrender.com
+        value: ""

@@ -19,3 +19,5 @@ docker run --rm -p 8000:8000 --env AIR_DATA_MODE=demo airaware-ai
 ```
 
 A working `render.yaml` does NOT create a service automatically: activation requires account permission and approval. No public backend URL is claimed until checked. This is an environmental data explorer, not an official public safety system.
+
+**October 28 update:** `/api/ready` is a configuration-only check (live mode without a key returns 503); `/api/health` remains a liveness check. Latest-sensor calls are cached in 10-minute windows to reduce OpenAQ quota use. The Blueprint no longer hardcodes a guessed Render domain; React and the API share the same origin by default. See [PRODUCTION_HARDENING.md](PRODUCTION_HARDENING.md).

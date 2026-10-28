@@ -4,7 +4,7 @@ import time
 import pandas as pd
 from src.airaware.config import CITIES, settings
 from src.airaware.ingestion.demo import demo_readings, demo_weather
-from src.airaware.ingestion.live import live_readings
+from src.airaware.ingestion.live import live_readings, live_latest
 from src.airaware.ingestion.weather_client import current_weather
 from src.airaware.processing.validation import validate_measurements, coverage
 from src.airaware.processing.features import daily_city_average
@@ -18,6 +18,15 @@ def heat_band(apparent):
     if apparent is None:
         return "unavailable"
     return "very high" if apparent >= 40 else "high" if apparent >= 32 else "elevated" if apparent >= 27 else "lower"
+
+
+@lru_cache(maxsize=40)
+def cached_latest(city, key, bucket):
+    """Limit provider traffic: latest calls share a 10-minute cache window.
+
+    Upstream failures are never cached and are always surfaced to callers.
+    """
+    return live_latest(city, key)
 
 
 @lru_cache(maxsize=8)

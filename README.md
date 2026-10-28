@@ -20,6 +20,8 @@ Every analytical graphic is generated from **synthetic educational data**. Archi
 
 ![Build](https://img.shields.io/badge/build-local%20demo-30e0b0?style=flat-square) ![Data](https://img.shields.io/badge/data-synthetic%20demo-f7bf75?style=flat-square) ![Stack](https://img.shields.io/badge/stack-Python%20%7C%20React%20%7C%20FastAPI-2c7488?style=flat-square)
 
+**Additional October 28 reliability upgrade:** The API now distinguishes `/api/health` (process liveness) from `/api/ready` (configuration-only readiness), caches OpenAQ latest requests for ten minutes, and sets safer response headers. A new expanding-window statistical backtest uses non-overlapping date windows, a calendar coverage gate, and explicit synthetic-data rejection. See [Production hardening](docs/PRODUCTION_HARDENING.md). **No real API access, hosting activation, or Power BI Desktop export has been verified.**
+
 **2026-10-28 production-readiness update:** [Full-stack Render deployment guide](docs/FULLSTACK_DEPLOY.md) · [Authenticated OpenAQ and real-data backtest protocol](docs/REAL_DATA_VALIDATION.md) · [Editable Power BI project (.pbip)](powerbi/AirAwareReport/AirAware.pbip) · [Actual completion matrix](docs/PRODUCTION_STATUS.md). These artifacts are implemented; activation/real-data validation/Power BI Desktop refresh require accounts and credentials.
 
 **What works locally:** reproducible synthetic time-series data, read-only FastAPI routes, real-source OpenAQ v3 + Open-Meteo clients (credentials/network required), analytical processing, SQL snapshot support, station-map UI, forecasting baseline, offline Random Forest benchmark, tests, Compose configuration, Power BI CSV example and portfolio case study.
@@ -61,13 +63,13 @@ For Windows, a `START_WINDOWS.ps1` helper runs installation and launches the loc
 
 | Route | Description |
 |---|---|
-| `GET /api/health` | API availability and active mode |
+| `GET /api/health` | Process liveness only (not live-source verification) |
+| `GET /api/ready` | Configuration readiness (not an upstream health probe) |
 | `GET /api/cities` | Supported city centers |
 | `GET /api/overview?city=Hyderabad` | PM2.5 stats, weather and freshness |
 | `GET /api/trends?city=Hyderabad&days=30` | Daily history; 7–120 days |
 | `GET /api/stations?city=Hyderabad` | Station metadata, last reporting day |
 | `GET /api/forecast?city=Hyderabad&days=7` | **Untrained persistence baseline**, separate from observations |
-| `GET /api/latest?city=Hyderabad` | Latest reported PM2.5 sensor records with timestamps and data age; not guaranteed real-time |
 | `GET /api/quality?city=Hyderabad` | Coverage, freshness and exploratory anomaly flags |
 
 ## ML evaluation and SQL export
@@ -79,6 +81,8 @@ python -m scripts.export_demo
 python -m src.airaware.models.train --csv data/processed/hyderabad_synthetic_pm25.csv --city Hyderabad --output data/processed/imported_demo_model.joblib
 python -m pytest -q
 ```
+
+The additional, stricter rolling-origin backtest runs with `python -m src.airaware.models.rolling_backtest --csv FILE --city Hyderabad --output REPORT.json`. Use `--allow-synthetic` **only** for explicitly labeled demonstrations; see [Production hardening](docs/PRODUCTION_HARDENING.md).
 
 An optional `--csv` input accepts validated station readings; CSV-only results are not automatically considered deployable. Training prints chronological 80/20 holdout MAE/RMSE for prior-day persistence versus Random Forest. These scores are from **fabricated educational data**, so never use them as proof of predictive performance in a real city. API forecasts intentionally remain an untrained baseline rather than silently deploying this model.
 
