@@ -18,7 +18,7 @@ Every analytical graphic is generated from **synthetic educational data**. Archi
 
 **Design:** [Architecture](docs/ARCHITECTURE.md) · [Workflow and ML pipeline](docs/WORKFLOW.md) · [Project source tree](docs/PROJECT_STRUCTURE.md) · [Operations runbook](docs/OPERATIONS.md) · [Data dictionary](docs/DATA_DICTIONARY.md) · [Model card](docs/MODEL_CARD.md) · [Portfolio case study](docs/PORTFOLIO_CASE_STUDY.md).
 
-![Build](https://img.shields.io/badge/build-local%20demo-30e0b0?style=flat-square) ![Data](https://img.shields.io/badge/data-synthetic%20demo-f7bf75?style=flat-square) ![Stack](https://img.shields.io/badge/stack-Python%20%7C%20React%20%7C%20FastAPI-2c7488?style=flat-square)
+[![GitHub CI](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/workflows/ci.yml) ![Build](https://img.shields.io/badge/build-local%20demo-30e0b0?style=flat-square) ![Data](https://img.shields.io/badge/data-synthetic%20demo-f7bf75?style=flat-square) ![Stack](https://img.shields.io/badge/stack-Python%20%7C%20React%20%7C%20FastAPI-2c7488?style=flat-square)
 
 **What works locally:** reproducible synthetic time-series data, read-only FastAPI routes, real-source OpenAQ v3 + Open-Meteo clients (credentials/network required), analytical processing, SQL snapshot support, station-map UI, forecasting baseline, offline Random Forest benchmark, tests, Compose configuration, Power BI CSV example and portfolio case study.
 
@@ -115,5 +115,7 @@ AirAware-AI/
 **References:** [OpenAQ v3 docs](https://docs.openaq.org/api) · [OpenAQ latest caveat](https://docs.openaq.org/resources/latest) · [Open-Meteo weather](https://open-meteo.com/en/docs) · [Source and deployment notes](docs/ARCHITECTURE.md)
 
 For publishing instructions see [`docs/GITHUB_PUBLISH.md`](docs/GITHUB_PUBLISH.md).
+
+**Source repository:** [AirAware AI — full stack and visual gallery](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence).
 
 Created as an original educational portfolio application. The visual design and data are independent from the OpenKit case study; its engagement statistic is **not** attributed to this project.
