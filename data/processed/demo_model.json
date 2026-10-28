@@ -1,0 +1,16 @@
+{
+  "city": "Hyderabad",
+  "data_mode": "synthetic_demo",
+  "evaluation": "chronological 80/20 holdout, one-day predictions",
+  "train_rows": 138,
+  "test_rows": 35,
+  "baseline": {
+    "mae": 3.654,
+    "rmse": 4.465
+  },
+  "random_forest": {
+    "mae": 3.574,
+    "rmse": 4.434
+  },
+  "model_selected": "random_forest"
+}
