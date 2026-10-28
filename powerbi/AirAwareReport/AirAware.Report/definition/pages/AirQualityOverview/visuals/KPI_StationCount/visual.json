@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "KPI_StationCount",
+  "position": {
+    "x": 330,
+    "y": 20,
+    "z": 0,
+    "width": 285,
+    "height": 115,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Readings"
+                    }
+                  },
+                  "Property": "Reporting Stations"
+                }
+              },
+              "queryRef": "Readings.Reporting Stations",
+              "nativeQueryRef": "Reporting Stations"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {},
+    "drillFilterOtherVisuals": true
+  }
+}

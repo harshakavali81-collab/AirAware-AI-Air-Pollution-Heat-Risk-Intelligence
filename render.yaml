@@ -1,0 +1,16 @@
+# Render Blueprint: account owner must approve/deploy and set OPENAQ_API_KEY.
+services:
+  - type: web
+    name: airaware-ai
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    autoDeployTrigger: commit
+    healthCheckPath: /api/health
+    envVars:
+      - key: AIR_DATA_MODE
+        value: demo
+      - key: OPENAQ_API_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        value: https://airaware-ai.onrender.com

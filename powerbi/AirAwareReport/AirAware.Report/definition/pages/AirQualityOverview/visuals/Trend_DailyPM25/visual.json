@@ -1,0 +1,58 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "Trend_DailyPM25",
+  "position": {
+    "x": 24,
+    "y": 158,
+    "z": 0,
+    "width": 1220,
+    "height": 485,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Readings"
+                    }
+                  },
+                  "Property": "date"
+                }
+              },
+              "queryRef": "Readings.date",
+              "nativeQueryRef": "date"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Readings"
+                    }
+                  },
+                  "Property": "Average PM2.5"
+                }
+              },
+              "queryRef": "Readings.Average PM2.5",
+              "nativeQueryRef": "Average PM2.5"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {},
+    "drillFilterOtherVisuals": true
+  }
+}

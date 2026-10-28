@@ -18,7 +18,9 @@ Every analytical graphic is generated from **synthetic educational data**. Archi
 
 **Design:** [Architecture](docs/ARCHITECTURE.md) · [Workflow and ML pipeline](docs/WORKFLOW.md) · [Project source tree](docs/PROJECT_STRUCTURE.md) · [Operations runbook](docs/OPERATIONS.md) · [Data dictionary](docs/DATA_DICTIONARY.md) · [Model card](docs/MODEL_CARD.md) · [Portfolio case study](docs/PORTFOLIO_CASE_STUDY.md).
 
-[![GitHub CI](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/workflows/ci.yml) ![Build](https://img.shields.io/badge/build-local%20demo-30e0b0?style=flat-square) ![Data](https://img.shields.io/badge/data-synthetic%20demo-f7bf75?style=flat-square) ![Stack](https://img.shields.io/badge/stack-Python%20%7C%20React%20%7C%20FastAPI-2c7488?style=flat-square)
+![Build](https://img.shields.io/badge/build-local%20demo-30e0b0?style=flat-square) ![Data](https://img.shields.io/badge/data-synthetic%20demo-f7bf75?style=flat-square) ![Stack](https://img.shields.io/badge/stack-Python%20%7C%20React%20%7C%20FastAPI-2c7488?style=flat-square)
+
+**2026-10-28 production-readiness update:** [Full-stack Render deployment guide](docs/FULLSTACK_DEPLOY.md) · [Authenticated OpenAQ and real-data backtest protocol](docs/REAL_DATA_VALIDATION.md) · [Editable Power BI project (.pbip)](powerbi/AirAwareReport/AirAware.pbip) · [Actual completion matrix](docs/PRODUCTION_STATUS.md). These artifacts are implemented; activation/real-data validation/Power BI Desktop refresh require accounts and credentials.
 
 **What works locally:** reproducible synthetic time-series data, read-only FastAPI routes, real-source OpenAQ v3 + Open-Meteo clients (credentials/network required), analytical processing, SQL snapshot support, station-map UI, forecasting baseline, offline Random Forest benchmark, tests, Compose configuration, Power BI CSV example and portfolio case study.
 
@@ -79,7 +81,7 @@ python -m pytest -q
 
 An optional `--csv` input accepts validated station readings; CSV-only results are not automatically considered deployable. Training prints chronological 80/20 holdout MAE/RMSE for prior-day persistence versus Random Forest. These scores are from **fabricated educational data**, so never use them as proof of predictive performance in a real city. API forecasts intentionally remain an untrained baseline rather than silently deploying this model.
 
-Import `data/processed/hyderabad_synthetic_pm25.csv` into Power BI using [`powerbi/README.md`](powerbi/README.md). An authored `.pbix` isn't included.
+Import `data/processed/hyderabad_synthetic_pm25.csv` into Power BI using [`powerbi/README.md`](powerbi/README.md). A source-controlled **Power BI Project (.pbip)** with two pages is now included; its PBIR/TMSL source passes structural checks, but Desktop open/refresh and optional `.pbix` export are not verified here.
 
 ## Project tree
 
@@ -115,7 +117,5 @@ AirAware-AI/
 **References:** [OpenAQ v3 docs](https://docs.openaq.org/api) · [OpenAQ latest caveat](https://docs.openaq.org/resources/latest) · [Open-Meteo weather](https://open-meteo.com/en/docs) · [Source and deployment notes](docs/ARCHITECTURE.md)
 
 For publishing instructions see [`docs/GITHUB_PUBLISH.md`](docs/GITHUB_PUBLISH.md).
-
-**Source repository:** [AirAware AI — full stack and visual gallery](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence).
 
 Created as an original educational portfolio application. The visual design and data are independent from the OpenKit case study; its engagement statistic is **not** attributed to this project.

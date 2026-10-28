@@ -1,6 +1,8 @@
 """FastAPI application. All responses carry source-mode information."""
 import os
-from functools import lru_cache
+from pathlib import Path
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from src.airaware.config import CITIES, settings
@@ -54,3 +56,17 @@ def forecast(city: str = Query("Hyderabad"), days: int = Query(7, ge=1, le=14)):
 @app.get("/api/quality")
 def quality(city: str = Query("Hyderabad")):
     return service.quality(get_snapshot(city))
+
+
+# Built frontend is packaged by the multi-stage Dockerfile. Local API-only development
+# continues working when frontend/dist has not been built.
+DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+if DIST.is_dir():
+    app.mount("/assets", StaticFiles(directory=DIST / "assets"), name="web-assets")
+
+    @app.get("/", include_in_schema=False)
+    @app.get("/{path:path}", include_in_schema=False)
+    def frontend(path: str = ""):
+        if path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="API endpoint not found")
+        return FileResponse(DIST / "index.html")

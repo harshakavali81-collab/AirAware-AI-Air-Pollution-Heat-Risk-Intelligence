@@ -1,0 +1,82 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "Table_Readings",
+  "position": {
+    "x": 690,
+    "y": 20,
+    "z": 0,
+    "width": 548,
+    "height": 570,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Readings"
+                    }
+                  },
+                  "Property": "date"
+                }
+              },
+              "queryRef": "Readings.date",
+              "nativeQueryRef": "date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Readings"
+                    }
+                  },
+                  "Property": "station"
+                }
+              },
+              "queryRef": "Readings.station",
+              "nativeQueryRef": "station"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Readings"
+                    }
+                  },
+                  "Property": "pm25"
+                }
+              },
+              "queryRef": "Readings.pm25",
+              "nativeQueryRef": "pm25"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Readings"
+                    }
+                  },
+                  "Property": "source"
+                }
+              },
+              "queryRef": "Readings.source",
+              "nativeQueryRef": "source"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {},
+    "visualContainerObjects": {},
+    "drillFilterOtherVisuals": true
+  }
+}
