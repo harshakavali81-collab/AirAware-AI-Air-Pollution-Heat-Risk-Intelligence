@@ -145,3 +145,7 @@ Created as an original educational portfolio application. The visual design and 
 - [Production release acceptance checklist](docs/RELEASE_ACCEPTANCE.md) explains the remaining Render account activation, private OpenAQ key, current India provider verification, scientific model review and Power BI Desktop PBIX export. **No public full-stack or live India deployment has been verified.**
 - `python -m scripts.verify_powerbi_project` checks PBIP source structure (two pages, five visuals, four required model columns); it **does not substitute for opening the project in Power BI Desktop**.
 - A manual [production smoke workflow](.github/workflows/production-smoke.yml) tests an existing HTTPS deployment URL (and optionally live readings) after the owner connects hosting. It is not scheduled to run against an invented domain.
+
+## Dedicated standalone preview (GitHub Pages)
+
+The repository now contains a separate [`gh-pages` branch](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/tree/gh-pages) with a self-contained **synthetic** interactive demo (no OpenAQ key, server or deployed forecast). The branch is published to GitHub, **but public Pages service requires the repository owner to select `gh-pages` → `/(root)` in GitHub Settings → Pages**. Do not advertise its expected URL until the deployment and HTTP response are verified. See [activation and acceptance instructions](docs/STATIC_DEMO_PAGES.md). A Pages preview does not substitute for the full-stack Render deployment.
