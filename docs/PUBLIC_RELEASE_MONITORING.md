@@ -1,0 +1,7 @@
+# Public URL release monitoring
+
+The new [public-release-monitor.yml](../.github/workflows/public-release-monitor.yml) workflow checks the independently deployed GitHub Pages **synthetic** preview every day and when the monitor source changes. It expects a successful HTTPS response, HTML, AirAware branding, and an explicit synthetic-data disclaimer. This is an HTTP check of a static demo only.
+
+**Full-stack deployment is not activated by this workflow.** When the owner deploys the Render Blueprint, configure a GitHub Actions **repository variable** (Settings → Secrets and variables → Actions → Variables) named `AIRAWARE_FULLSTACK_URL` with the verified public HTTPS origin (no path). The monitor will then call the existing FastAPI/React deployment checks. If authenticated OpenAQ readings are enabled and verified, set repository variable `AIRAWARE_REQUIRE_LIVE` to `true`, which adds recent timestamp and station checks. Never store an OpenAQ key in a variable or in repository code: it belongs solely in the private Render secret environment.
+
+The workflow uploads a machine-readable `public-verification.json` artifact to the corresponding GitHub Actions run (retention 14 days). A green static check does **not** prove the backend was deployed, that recent Indian observations were fetched, that forecasts are valid, or that Power BI Desktop exported a PBIX. This workflow cannot remove the external owner acceptance steps in [Issue #1](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/issues/1).
