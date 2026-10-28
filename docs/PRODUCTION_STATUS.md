@@ -17,3 +17,9 @@
 - No credentials or Power BI Desktop environment were available to independently validate live API access or export `.pbix`.
 
 Detailed controls and owner acceptance checklist: [Production hardening](PRODUCTION_HARDENING.md).
+
+## Independent historical dataset evaluation upgrade (October 28, 2026)
+
+The new [UCI Beijing historical-observation benchmark](HISTORICAL_OBSERVATION_BENCHMARK.md) uses an official public *observed* 2013–2017 dataset (12 sites, CC BY 4.0) to exercise the expanding-window evaluation pipeline with provenance and test-period metrics. Its GitHub workflow downloads the official archive and publishes a limited-lifetime JSON artifact. Do not state that the download, model backtest, or benchmark run succeeded unless the [workflow](../.github/workflows/historical-observation-benchmark.yml) has completed successfully.
+
+This is independent historical **Beijing** benchmarking, **not** the outstanding authenticated OpenAQ data for India or deployment validation. The hosted Render API, OpenAQ key, and Power BI Desktop validation still require owner-provided external access. The [HTTPS post-deployment check](../scripts/check_deployment.py) exists to verify a real URL after deployment.

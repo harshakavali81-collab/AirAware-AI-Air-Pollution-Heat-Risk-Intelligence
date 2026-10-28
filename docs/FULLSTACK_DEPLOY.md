@@ -21,3 +21,17 @@ docker run --rm -p 8000:8000 --env AIR_DATA_MODE=demo airaware-ai
 A working `render.yaml` does NOT create a service automatically: activation requires account permission and approval. No public backend URL is claimed until checked. This is an environmental data explorer, not an official public safety system.
 
 **October 28 update:** `/api/ready` is a configuration-only check (live mode without a key returns 503); `/api/health` remains a liveness check. Latest-sensor calls are cached in 10-minute windows to reduce OpenAQ quota use. The Blueprint no longer hardcodes a guessed Render domain; React and the API share the same origin by default. See [PRODUCTION_HARDENING.md](PRODUCTION_HARDENING.md).
+
+## Post-deployment acceptance verification (2026 upgrade)
+
+From your own machine after you approve Render Blueprint deployment:
+
+```bash
+python -m scripts.check_deployment --url https://YOUR-ACTUAL-SERVICE.onrender.com
+# After OPENAQ_API_KEY is added in Render's secret settings and AIR_DATA_MODE=live:
+python -m scripts.check_deployment --url https://YOUR-ACTUAL-SERVICE.onrender.com --require-live
+```
+
+This checks HTTPS responses, health, readiness, frontend availability, and optionally nonempty provider readings. It cannot prove uptime, monitoring coverage, security accreditation or forecast accuracy. A free Render service may sleep after inactivity; free-tier services are not recommended for production use.
+
+**Never commit a real OpenAQ key into this repository.** Obtain your own key in OpenAQ Explorer and set it in Render as a secret environment variable. The repository's `render.yaml` starts in `AIR_DATA_MODE=demo` intentionally; choose live mode only after the API key is configured and verified. Do not copy/paste the key into any public chat.

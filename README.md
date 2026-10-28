@@ -124,3 +124,10 @@ AirAware-AI/
 For publishing instructions see [`docs/GITHUB_PUBLISH.md`](docs/GITHUB_PUBLISH.md).
 
 Created as an original educational portfolio application. The visual design and data are independent from the OpenKit case study; its engagement statistic is **not** attributed to this project.
+
+### Historical observed-data benchmark and production verification
+
+- [Observed-data backtest protocol](docs/HISTORICAL_OBSERVATION_BENCHMARK.md): reproducible 2013–2017 **Beijing** PM2.5 evaluation using the UCI 12-station real observational archive (CC BY 4.0, [DOI 10.24432/C5RK5G](https://doi.org/10.24432/C5RK5G)). It is **not** live OpenAQ, present-day Hyderabad, scientific certification, or a deployed forecasting service.
+- [Benchmark GitHub Action](.github/workflows/historical-observation-benchmark.yml): downloads official historical dataset on GitHub's runner and records attributed model-versus-persistence results and data digest; inspect completed Actions logs before quoting any metrics.
+- [Post-deploy verifier](scripts/check_deployment.py): explicit HTTP/front-end readiness and opt-in live-ingestion checks for the real URL after the account owner deploys. Never presents a mock or configured blueprint as public hosting.
+- Full-stack public hosting remains an **external-account action**. [See deployment steps](docs/FULLSTACK_DEPLOY.md); provide your own Render access and OpenAQ key in the platform's private settings. Power BI Desktop is still required to validate the editable PBIP and save a native PBIX.
