@@ -148,7 +148,7 @@ Created as an original educational portfolio application. The visual design and 
 
 ## Dedicated GitHub Pages interactive demo — deployed
 
-The isolated `gh-pages` branch provides an **interactive synthetic-data** dashboard at https://harshakavali81-collab.github.io/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/ . Its build and deployment workflow passed on October 28, 2026 (https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/runs/40658823721). The reported URL comes from GitHub's deployment logs; independent HTTP verification was unavailable in the execution environment.
+The isolated `gh-pages` branch provides an **interactive synthetic-data** dashboard at https://harshakavali81-collab.github.io/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/ . Its build and deployment workflow passed on October 28, 2026 (https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/runs/40658823721). The GitHub Pages deployment succeeded and an independent GitHub-hosted monitor confirmed **HTTP 200**, AirAware branding and the synthetic-data disclosure ([passing monitor run](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/runs/40661369257)). That monitor explicitly reported no configured full-stack service URL.
 
 **Not a live production backend:** This standalone preview needs no API key and contains fabricated educational sample data. Actual full-stack Render hosting, authenticated OpenAQ India sensor verification, real India forecasting performance and native Microsoft Power BI Desktop PBIX export remain owner-account-dependent. See https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/issues/1 .
 
@@ -170,3 +170,7 @@ The Random Forest was **worse** by 0.5366 µg/m³ and must **not** be called an 
 - [Re-run historical data pipeline](scripts/india_cpcb_historical_benchmark.py) · [GitHub Action](.github/workflows/india-historical-observation-benchmark.yml)
 
 **Current external blockers remain:** Activate and verify actual Render full-stack hosting; obtain and securely configure an owner OpenAQ API key for direct authenticated *live* India readings; perform spatial and independent operational model validation; open and export the PBIP in Power BI Desktop to produce a native verified PBIX.
+
+### Daily public URL verification
+
+A new [independent public-release monitor](docs/PUBLIC_RELEASE_MONITORING.md) checks the static-demo HTTP response and synthetic-only disclosure daily. It can additionally test the live React + FastAPI service once the actual domain is set in GitHub repository Actions variable `AIRAWARE_FULLSTACK_URL`. Use `AIRAWARE_REQUIRE_LIVE=true` only after securely configuring actual OpenAQ credentials on the backend. **The monitor currently reports no live full-stack URL** and cannot certify operational India forecasts or native Power BI Desktop compatibility.
