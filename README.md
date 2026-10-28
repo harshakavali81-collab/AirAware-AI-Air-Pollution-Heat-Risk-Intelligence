@@ -146,6 +146,27 @@ Created as an original educational portfolio application. The visual design and 
 - `python -m scripts.verify_powerbi_project` checks PBIP source structure (two pages, five visuals, four required model columns); it **does not substitute for opening the project in Power BI Desktop**.
 - A manual [production smoke workflow](.github/workflows/production-smoke.yml) tests an existing HTTPS deployment URL (and optionally live readings) after the owner connects hosting. It is not scheduled to run against an invented domain.
 
-## Dedicated public static demo (GitHub Pages)
+## Dedicated GitHub Pages interactive demo — deployed
 
-**GitHub Pages deployment succeeded** for the independent [`gh-pages` branch](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/tree/gh-pages) on 2026-10-28. [Open the public static AirAware AI demo](https://harshakavali81-collab.github.io/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/) · [Deployment CI evidence](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/runs/40658823721) (the job reports this page URL). It is a **synthetic educational preview**, not a FastAPI-hosted service or authenticated live OpenAQ measurement product; public URL was confirmed by deployment logs, not independently tested with an HTTP request here. [Static preview details](docs/STATIC_DEMO_PAGES.md).
+The isolated `gh-pages` branch provides an **interactive synthetic-data** dashboard at https://harshakavali81-collab.github.io/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/ . Its build and deployment workflow passed on October 28, 2026 (https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/runs/40658823721). The reported URL comes from GitHub's deployment logs; independent HTTP verification was unavailable in the execution environment.
+
+**Not a live production backend:** This standalone preview needs no API key and contains fabricated educational sample data. Actual full-stack Render hosting, authenticated OpenAQ India sensor verification, real India forecasting performance and native Microsoft Power BI Desktop PBIX export remain owner-account-dependent. See https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/issues/1 .
+
+## Verified observed historical Hyderabad benchmark (2024)
+
+The [Hyderabad historical PM2.5 evaluation](docs/HYDERABAD_OBSERVED_BENCHMARK.md) **successfully downloaded recorded-source station observations** from the [XKDR Forum India Air Quality Database](https://airquality.xkdr.org/) (CPCB CAAQM origin, XKDR CC BY 4.0 compilation). GitHub Actions verified **5,088 station-day observations from 15 monitoring stations**, 366 observed days in 2024 and seven expanding-window test folds. [View the successful evaluation workflow](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/runs/40660029536).
+
+| One-day-ahead historical predictor | Mean-fold MAE (µg/m³, lower is better) |
+|---|---:|
+| Persistence | **3.5140** |
+| Random Forest | **4.0506** |
+
+The Random Forest was **worse** by 0.5366 µg/m³ and must **not** be called an improvement. This is a historical city-average statistical backtest, not an operationally verified local forecast, direct OpenAQ access, 2026 measurements, independent spatial validation or medical guidance.
+
+![Recorded historical Hyderabad fold-level MAE comparison](assets/hyderabad-2024-historical-folds.svg)
+
+- [Full source provenance, per-fold statistics, caveats](docs/HYDERABAD_OBSERVED_BENCHMARK.md)
+- [Machine-readable archived evaluation](reports/hyderabad_cpcb_historical_2024.json)
+- [Re-run historical data pipeline](scripts/india_cpcb_historical_benchmark.py) · [GitHub Action](.github/workflows/india-historical-observation-benchmark.yml)
+
+**Current external blockers remain:** Activate and verify actual Render full-stack hosting; obtain and securely configure an owner OpenAQ API key for direct authenticated *live* India readings; perform spatial and independent operational model validation; open and export the PBIP in Power BI Desktop to produce a native verified PBIX.

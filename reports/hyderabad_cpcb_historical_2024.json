@@ -1,0 +1,171 @@
+{
+  "city": "Hyderabad (historical monitoring, 2024)",
+  "evaluated_at_utc": "2026-10-28T08:53:51.753352+00:00",
+  "evaluation_kind": "rolling_origin_one_day_ahead_exploratory",
+  "verification": "offline_statistical_backtest_not_independently_validated",
+  "data_classification": "historical_2024_hyderabad_observation_not_current_openaq",
+  "measurement_units": "µg/m³",
+  "observed_days": 366,
+  "calendar_days": 366,
+  "calendar_coverage_pct": 100.0,
+  "stations_in_input": 15,
+  "folds": [
+    {
+      "train_end": "2024-05-06",
+      "test_start": "2024-05-07",
+      "test_end": "2024-06-05",
+      "train_rows": 120,
+      "test_rows": 30,
+      "persistence": {
+        "mae": 3.046,
+        "rmse": 3.7803
+      },
+      "random_forest": {
+        "mae": 3.3776,
+        "rmse": 4.3146
+      }
+    },
+    {
+      "train_end": "2024-06-05",
+      "test_start": "2024-06-06",
+      "test_end": "2024-07-05",
+      "train_rows": 150,
+      "test_rows": 30,
+      "persistence": {
+        "mae": 3.8013,
+        "rmse": 7.3909
+      },
+      "random_forest": {
+        "mae": 5.7508,
+        "rmse": 8.0639
+      }
+    },
+    {
+      "train_end": "2024-07-05",
+      "test_start": "2024-07-06",
+      "test_end": "2024-08-04",
+      "train_rows": 180,
+      "test_rows": 30,
+      "persistence": {
+        "mae": 1.3207,
+        "rmse": 1.5852
+      },
+      "random_forest": {
+        "mae": 2.0526,
+        "rmse": 2.5665
+      }
+    },
+    {
+      "train_end": "2024-08-04",
+      "test_start": "2024-08-05",
+      "test_end": "2024-09-03",
+      "train_rows": 210,
+      "test_rows": 30,
+      "persistence": {
+        "mae": 5.127,
+        "rmse": 9.3746
+      },
+      "random_forest": {
+        "mae": 4.8667,
+        "rmse": 8.2669
+      }
+    },
+    {
+      "train_end": "2024-09-03",
+      "test_start": "2024-09-04",
+      "test_end": "2024-10-03",
+      "train_rows": 240,
+      "test_rows": 30,
+      "persistence": {
+        "mae": 2.6672,
+        "rmse": 3.3916
+      },
+      "random_forest": {
+        "mae": 3.1405,
+        "rmse": 3.8652
+      }
+    },
+    {
+      "train_end": "2024-10-03",
+      "test_start": "2024-10-04",
+      "test_end": "2024-11-02",
+      "train_rows": 270,
+      "test_rows": 30,
+      "persistence": {
+        "mae": 4.7135,
+        "rmse": 6.5454
+      },
+      "random_forest": {
+        "mae": 4.7839,
+        "rmse": 6.6747
+      }
+    },
+    {
+      "train_end": "2024-11-02",
+      "test_start": "2024-11-03",
+      "test_end": "2024-12-02",
+      "train_rows": 300,
+      "test_rows": 30,
+      "persistence": {
+        "mae": 3.9225,
+        "rmse": 4.9971
+      },
+      "random_forest": {
+        "mae": 4.3821,
+        "rmse": 5.5349
+      }
+    }
+  ],
+  "fold_count": 7,
+  "mean_fold_mae": {
+    "persistence": 3.514,
+    "random_forest": 4.0506
+  },
+  "candidate_beats_baseline_in_folds": 1,
+  "caveats": [
+    "This is not a regulatory, medical, or emergency warning product.",
+    "Station representativeness, sensors, licensing and timestamps require independent verification.",
+    "Overlapping station coverage, geography and seasonal drift can affect scores.",
+    "A model should not be deployed without independently reviewed out-of-period validation."
+  ],
+  "source_kind": "xkdr_historical_cpcb_observations",
+  "source_csv_sha256": "52e44b2ac03a979217a137fdab66e3a47f898e061bf88d8ccb5a842d8784a039",
+  "provider_headers": {
+    "row_count_header": "5088",
+    "truncated_header": "false"
+  },
+  "dataset": {
+    "title": "India Air Quality Database (XKDR Forum), 2024 daily station-level CPCB PM2.5",
+    "source": "https://github.com/xKDR/Air-Quality-Database",
+    "api_reference": "https://airquality.xkdr.org/",
+    "upstream": "Central Pollution Control Board (CPCB) CAAQM",
+    "license": "CC BY 4.0 compilation, as described by XKDR; original source notices apply",
+    "city": "Hyderabad",
+    "country": "India",
+    "period": "2024-01-01/2024-12-31",
+    "parameter": "PM2.5",
+    "units": "µg/m³",
+    "aggregation": "station daily means as supplied by provider",
+    "time_base": "Indian local calendar date; encoded as UTC midnight for calendar modeling only",
+    "provenance": "download_xkdr_api"
+  },
+  "input": {
+    "provider_daily_rows": 5088,
+    "valid_daily_station_rows": 5088,
+    "duplicate_station_dates_deduplicated": 0,
+    "stations": 15,
+    "first_date": "2024-01-01",
+    "last_date": "2024-12-31",
+    "days_with_observations": 366,
+    "source_units": [
+      "µg/m³"
+    ]
+  },
+  "caveats_india": [
+    "This is historical CPCB monitoring data supplied by third-party XKDR, not direct OpenAQ authenticated access.",
+    "A time-separated statistical comparison is not independently validated operational forecasting.",
+    "Station distribution and sensor calibration are not independently verified.",
+    "Citywide averages use available station-days and may change as reporting sites vary.",
+    "For operational use independently verify calibration, geographic generalization, data provenance, drift and forecast horizon."
+  ]
+}
