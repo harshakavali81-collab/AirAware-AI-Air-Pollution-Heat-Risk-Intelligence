@@ -2,7 +2,7 @@
 
 A dedicated `gh-pages` branch has been created at source commit `6e6dfeb960020186a6a5538b87766d830fec0c4a`. Its root contains **only** `index.html`, `README.md` and `.nojekyll`.
 
-## Enable Pages (repo owner, once)
+## Pages deployment (already enabled and deployed)
 
 1. Open [Settings → Pages](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/settings/pages).
 2. Set **Build and deployment → Source** to **Deploy from a branch**.
@@ -10,7 +10,7 @@ A dedicated `gh-pages` branch has been created at source commit `6e6dfeb96002018
 4. Review **Actions → pages build and deployment** and confirm its conclusion is `success`.
 5. After verified publication, check the **expected** Pages URL: `https://harshakavali81-collab.github.io/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/` and verify the page displays the synthetic-demo disclosure.
 
-The expected URL is a path template, not a verified active site until the owner enables Pages and checks HTTP responses.
+Deployment verified: the GitHub Pages build and deploy job [passed on 2026-10-28](https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence/actions/runs/40658823721), and its job logs reported the public URL below. Independent HTTP content retrieval remains unchecked from this environment.
 
 ## Critical scope separation
 
