@@ -28,6 +28,13 @@ Every analytical graphic is generated from **synthetic educational data**. Archi
 
 **Not claimed:** Live production deployment, a verified AQI calculation, independently validated forecasting skill, an official weather/health alert system, or results from the unrelated [OpenKit Air Aware case study](https://openkit.co.uk/portfolio/air-aware).
 
+
+## One-click full-stack deployment (owner activation required)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence)
+
+The button opens the official Render deployment review for this repository's `render.yaml`. **Clicking and authorizing the deployment is required**; a GitHub CI pass is not a public deployment. The Blueprint defaults to **DEMO** mode, stores `OPENAQ_API_KEY` through the provider's private environment settings, and triggers deploys only after GitHub CI checks pass. Do not provide the key in issues or source files. After deployment, run the [manual public smoke workflow](.github/workflows/production-smoke.yml) with the actual HTTPS origin. Live verification now rejects stale, future-dated, invalid-unit, or insufficiently-covered provider readings. A successful live smoke test still does not constitute scientific forecast validation.
+
 ## Quick start — Python API
 
 ```bash
@@ -132,11 +139,9 @@ Created as an original educational portfolio application. The visual design and 
 - [Post-deploy verifier](scripts/check_deployment.py): explicit HTTP/front-end readiness and opt-in live-ingestion checks for the real URL after the account owner deploys. Never presents a mock or configured blueprint as public hosting.
 - Full-stack public hosting remains an **external-account action**. [See deployment steps](docs/FULLSTACK_DEPLOY.md); provide your own Render access and OpenAQ key in the platform's private settings. Power BI Desktop is still required to validate the editable PBIP and save a native PBIX.
 
-**Verified research result (not current India):** [Real historical Beijing PM2.5 model-versus-baseline comparison](docs/HISTORICAL_BENCHMARK_RESULTS.md) — 12 stations, 10 folds; persistence had lower mean MAE than Random Forest. [Reproducible evaluation JSON](reports/uci_beijing_historical.json).
-
 
 ## Release acceptance / deployment & Power BI validation (2026-10-28)
 
-- [Production release acceptance checklist](docs/RELEASE_ACCEPTANCE.md) explains remaining Render activation, private OpenAQ key, India provider verification, scientific model review and Power BI Desktop `.pbix` export. **Public full-stack and live India deployment remain unverified.**
-- `python -m scripts.verify_powerbi_project` checks PBIP structure (2 pages, 5 visuals, required data columns); it **cannot replace Power BI Desktop verification**.
-- [Manual production smoke workflow](.github/workflows/production-smoke.yml) tests a real HTTPS deployment URL after the owner activates hosting. It is not proof of a deployed host.
+- [Production release acceptance checklist](docs/RELEASE_ACCEPTANCE.md) explains the remaining Render account activation, private OpenAQ key, current India provider verification, scientific model review and Power BI Desktop PBIX export. **No public full-stack or live India deployment has been verified.**
+- `python -m scripts.verify_powerbi_project` checks PBIP source structure (two pages, five visuals, four required model columns); it **does not substitute for opening the project in Power BI Desktop**.
+- A manual [production smoke workflow](.github/workflows/production-smoke.yml) tests an existing HTTPS deployment URL (and optionally live readings) after the owner connects hosting. It is not scheduled to run against an invented domain.

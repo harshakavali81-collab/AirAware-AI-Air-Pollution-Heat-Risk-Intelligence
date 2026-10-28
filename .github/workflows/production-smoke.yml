@@ -6,6 +6,16 @@ on:
         description: 'Your already-deployed public HTTPS site origin, e.g. https://your-service.onrender.com'
         required: true
         type: string
+      max_reading_age_minutes:
+        description: Maximum acceptable PM2.5 measurement age in minutes (default 2880 = 48 hours)
+        required: true
+        default: "2880"
+        type: string
+      min_stations:
+        description: Minimum distinct stations with recent PM2.5 readings (default 1)
+        required: true
+        default: "1"
+        type: string
       require_live:
         description: 'Fail unless /api/latest returns nonempty LIVE readings (with provider credentials configured on host)'
         required: true
@@ -27,9 +37,11 @@ jobs:
         env:
           SITE_URL: ${{ inputs.site_url }}
           REQUIRE_LIVE: ${{ inputs.require_live }}
+          MAX_READING_AGE: ${{ inputs.max_reading_age_minutes }}
+          MIN_STATIONS: ${{ inputs.min_stations }}
         run: |
           if [ "$REQUIRE_LIVE" = "true" ]; then
-            python -m scripts.check_deployment --url "$SITE_URL" --require-live
+            python -m scripts.check_deployment --url "$SITE_URL" --require-live --max-reading-age-minutes "$MAX_READING_AGE" --min-stations "$MIN_STATIONS"
           else
             python -m scripts.check_deployment --url "$SITE_URL"
           fi

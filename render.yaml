@@ -5,7 +5,7 @@ services:
     runtime: docker
     dockerfilePath: ./Dockerfile
     plan: free
-    autoDeployTrigger: commit
+    autoDeployTrigger: checksPass
     healthCheckPath: /api/health
     envVars:
       - key: AIR_DATA_MODE

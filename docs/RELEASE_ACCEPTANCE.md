@@ -40,3 +40,11 @@
 ## Current conclusion
 
 The source is portfolio-ready and CI-tested. Deployment, authenticated current-location readings, operational forecasting validation, and native Power BI Desktop verification still require external accounts, private credentials, or external Windows desktop software. This repository cannot bypass those requirements.
+
+## Deployment gate upgrade (2026-10-28)
+
+- The README has a verified official-format Render deploy-button link. Owner authorization is still required.
+- Render Blueprint sets `autoDeployTrigger: checksPass`, rather than deploying every commit before CI finishes.
+- The manual `production-smoke.yml` workflow accepts a measured timestamp freshness threshold (`max_reading_age_minutes`, default 2880) and a minimum number of distinct stations (`min_stations`, default 1).
+- The checker validates `mode=live`, the UTC measurement timestamp, measurement units, numeric PM2.5 bounds, source identity, and geographic station count. **No API key is embedded in the workflow.**
+- A passing operational gate does not establish a regulator-grade AQI, a calibrated forecast, or a validated heat alert.
