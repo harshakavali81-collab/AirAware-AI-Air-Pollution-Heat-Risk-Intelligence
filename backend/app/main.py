@@ -53,6 +53,22 @@ def forecast(city: str = Query("Hyderabad"), days: int = Query(7, ge=1, le=14)):
     return service.forecast_data(get_snapshot(city), days)
 
 
+@app.get("/api/latest")
+def latest(city: str = Query("Hyderabad")):
+    # Deliberately distinguish source's most recent measurement from real-time AQI.
+    from src.airaware.ingestion.live import live_latest
+    cfg = settings()
+    if city not in CITIES:
+        raise HTTPException(status_code=422, detail="Unsupported city")
+    if cfg.mode == 'demo':
+        return {'city':city, 'mode':'demo', 'readings':[], 'notice':'No live readings in synthetic demo mode.'}
+    try:
+        readings = live_latest(city, cfg.key)
+    except AirDataError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    return {'city':city,'mode':'live','readings':readings,'notice':'Latest reported sensor values; station timestamps can be stale and do not guarantee complete time-series ingestion.'}
+
+
 @app.get("/api/quality")
 def quality(city: str = Query("Hyderabad")):
     return service.quality(get_snapshot(city))

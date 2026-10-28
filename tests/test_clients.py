@@ -53,3 +53,18 @@ def test_openaq_daily_paginates_for_long_histories():
     c = OpenAQClient('fake-test-key', httpx.Client(transport=httpx.MockTransport(handler)))
     assert len(c.daily(88, 150)) == 117
     assert seen == [1,2]
+
+
+def test_latest_mocked_sensor_timestamp_and_key(monkeypatch):
+    from src.airaware.ingestion.live import live_latest
+    def handler(req):
+        assert req.headers['X-API-Key'] == 'test'
+        if req.url.path == '/v3/locations':
+            return httpx.Response(200,json={'results':[{'id':42,'name':'Mock PM2.5 station','sensors':[{'id':4,'parameter':{'name':'pm25','units':'µg/m³'}}]}]})
+        if req.url.path == '/v3/locations/42/latest':
+            return httpx.Response(200,json={'results':[{'sensorsId':4,'value':12.4,'datetime':{'utc':'2026-10-28T04:00:00Z'}}, {'sensorsId':999,'value':80,'datetime':{'utc':'2026-10-28T04:00:00Z'}}]})
+        return httpx.Response(404)
+    http=httpx.Client(transport=httpx.MockTransport(handler))
+    monkeypatch.setattr('src.airaware.ingestion.live.OpenAQClient',lambda key: OpenAQClient(key,http))
+    rows=live_latest('Hyderabad','test')
+    assert len(rows)==1 and rows[0]['pm25']==12.4 and rows[0]['source']=='OpenAQ v3 latest'

@@ -12,7 +12,7 @@ function App(){
   const [city,setCity]=useState('Hyderabad'); const [tab,setTab]=useState('Dashboard'); const [data,setData]=useState(null);
   const [error,setError]=useState(''); const [loading,setLoading]=useState(true); const [menu,setMenu]=useState(false);
   useEffect(()=>{const abort=new AbortController();setLoading(true);setError('');
-    Promise.all(['overview','stations','trends','forecast','quality'].map(n=>query(n,city,n==='trends'?'days=30':'',abort.signal).then(v=>[n,v])))
+    Promise.all(['overview','stations','trends','forecast','quality','latest'].map(n=>query(n,city,n==='trends'?'days=30':'',abort.signal).then(v=>[n,v]).catch(err=>{if(n==='latest')return [n,{readings:[],notice:err.message}];throw err})))
       .then(res=>{if(!abort.signal.aborted) setData(Object.fromEntries(res));})
       .catch(err=>{if(!abort.signal.aborted){setData(null);setError(err.message);}})
       .finally(()=>{if(!abort.signal.aborted) setLoading(false);});

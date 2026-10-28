@@ -23,6 +23,7 @@ export default function Dashboard({data}) {
         <div className="insight-line"><div>Freshness</div><strong>{o.freshness?.status || 'unknown'}</strong></div>
         <div className="callout"><Clock3 size={18}/><p><b>Check the timestamps.</b> Daily pollutant values can lag behind weather data. This dashboard does not provide emergency alerts or medical guidance.</p></div></section>
     </div>
+    {data.latest?.readings?.length > 0 && <section className="panel station-panel"><div className="section-heading"><div><span className="eyebrow">LATEST REPORTED · NOT LIVE AQI</span><h2>Recent sensor reports</h2></div></div><p className="caption">Source: OpenAQ v3. Times indicate each sensor's measurement, not when OpenAQ ingested it.</p><div className="station-grid">{data.latest.readings.slice(0,6).map((r,i)=><div className="station-tile" key={r.sensor_id+'-'+i}><span className="station-dot"/><div><b>{r.station_name || r.station}</b><p>{r.measured_at_utc} · {r.age_minutes} min old</p></div><strong>{Number(r.pm25).toFixed(1)}<small> µg/m³</small></strong></div>)}</div></section>}
     <section className="panel station-panel"><div className="section-heading"><div><span className="eyebrow">STATION COVERAGE</span><h2>Reading comparison</h2></div></div>
       <div className="station-grid">{stations.map(x=><div className="station-tile" key={x.id}><span className="station-dot"/><div><b>{x.name}</b><p>{x.id} · {x.last_day || 'No data'}</p></div><strong>{x.pm25 ?? '—'}<small> µg/m³</small></strong></div>)}</div>
     </section>

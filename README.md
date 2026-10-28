@@ -67,6 +67,7 @@ For Windows, a `START_WINDOWS.ps1` helper runs installation and launches the loc
 | `GET /api/trends?city=Hyderabad&days=30` | Daily history; 7–120 days |
 | `GET /api/stations?city=Hyderabad` | Station metadata, last reporting day |
 | `GET /api/forecast?city=Hyderabad&days=7` | **Untrained persistence baseline**, separate from observations |
+| `GET /api/latest?city=Hyderabad` | Latest reported PM2.5 sensor records with timestamps and data age; not guaranteed real-time |
 | `GET /api/quality?city=Hyderabad` | Coverage, freshness and exploratory anomaly flags |
 
 ## ML evaluation and SQL export
