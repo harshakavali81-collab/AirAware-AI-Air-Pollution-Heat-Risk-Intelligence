@@ -1,39 +1,36 @@
-# Publish AirAware AI to GitHub (repository setup)
+# GitHub source publishing and release notes
 
-The AirAware-AI repository does not exist on the connected GitHub account at the time this project archive was assembled. The case study is already committed to `harshakavali81-collab/harshavardhan-portfolio`, but the entire application source has already been pushed under [`harshavardhan-portfolio/projects/AirAware-AI`](https://github.com/harshakavali81-collab/harshavardhan-portfolio/tree/main/projects/AirAware-AI). The instructions below are only for optionally creating a **separate standalone** repository.
+**Current dedicated source repository:** https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence
 
-## Step 1 — Create the empty repository
+The application, 10 original PNG images, documentation, automated workflow, source notebooks and tests are committed to the **`main`** branch. The repository's GitHub Actions checks verify the Python test job and frontend build on GitHub.
 
-Visit https://github.com/new while logged in to the account `harshakavali81-collab`.
+**Portfolio case study:** https://harshakavali81-collab.github.io/harshavardhan-portfolio/airaware.html
 
-- Repository name: `AirAware-AI`
-- Description: `Air pollution and heat intelligence dashboard — OpenAQ v3, FastAPI, React, ML and data quality`
-- Visibility: public, if you want recruiters to read the source
-- Do **not** auto-add a README or .gitignore; this archive already includes them.
-
-## Step 2 — Push the source from your machine
-
-In a terminal opened inside the extracted `AirAware-AI` folder:
+## Clone and run
 
 ```bash
-git init
-git branch -M main
-git add .
-git commit -m "Initial AirAware AI full-stack educational application"
-git remote add origin https://github.com/harshakavali81-collab/AirAware-AI.git
-git push -u origin main
+git clone https://github.com/harshakavali81-collab/AirAware-AI-Air-Pollution-Heat-Risk-Intelligence.git
+cd AirAware-AI-Air-Pollution-Heat-Risk-Intelligence
+python -m pip install -e '.[dev]'
+python -m pytest -q
+uvicorn backend.app.main:app --reload
 ```
 
-Authenticate using your own GitHub login or Git Credential Manager. Do not paste a personal access token into ChatGPT. If `origin` already exists, inspect `git remote -v` before changing anything. Do not force-push an existing repository.
+In a second terminal, `cd frontend && npm install && npm run dev`.
 
-## Step 3 — Verify
+## Updates and pull requests
 
-1. Visit https://github.com/harshakavali81-collab/AirAware-AI to confirm the files appear.
-2. Check the **Actions** tab for the Python tests and frontend build. The npm build was not independently checked in the offline development environment.
-3. Confirm the README images render. Add the case-study URL to the repository About field.
-4. Once a successful source push is verified, update `harshavardhan-portfolio/airaware.html` and the homepage card to point to the real source.
-5. Set `OPENAQ_API_KEY` only as a backend environment secret, never committed to GitHub.
+```bash
+git checkout -b docs/your-improvement
+# edit files, test locally
+python -m pytest -q
+git add .
+git commit -m "Document AirAware improvements"
+git push -u origin docs/your-improvement
+```
 
-## Optional Vercel frontend
+Then open a pull request against `main`. Never force-push the published main branch. See `CONTRIBUTING.md` and `docs/WORKFLOW.md`.
 
-Import the new GitHub repository into Vercel; set Root Directory to `frontend`, Build Command to `npm run build`, and Output Directory to `dist`. Set `VITE_API_BASE` to a verified HTTPS backend origin. A static Vercel deployment without a working backend will not have data.
+## What the public repository does not prove
+
+The CI build verifies code checks only. It does not mean the React/FastAPI app is deployed publicly, that OpenAQ connectivity was successfully authenticated, that real sensor coverage is sufficient, or that a model has been validated on measured pollution data. Set `OPENAQ_API_KEY` only on the backend or as a deployment secret. See `docs/OPERATIONS.md` for production readiness tasks.
