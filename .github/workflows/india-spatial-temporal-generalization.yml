@@ -1,0 +1,53 @@
+name: Historical Hyderabad unseen-station generalization (not live)
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/india_spatial_temporal_backtest.py'
+      - 'scripts/india_cpcb_historical_benchmark.py'
+      - 'tests/test_india_spatial_temporal_backtest.py'
+      - '.github/workflows/india-spatial-temporal-generalization.yml'
+permissions:
+  contents: read
+jobs:
+  spatial-historical:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install project with tests
+        run: python -m pip install -e '.[dev]'
+      - name: Offline leakage guards
+        run: python -m pytest -q tests/test_india_spatial_temporal_backtest.py
+      - name: Fetch 2024 recorded-source CPCB Hyderabad data and evaluate unseen stations
+        run: python -m scripts.india_spatial_temporal_backtest --download-xkdr-2024 --output reports/hyderabad_cpcb_spatial_temporal_2024.json
+      - name: Write evaluation summary and verify source provenance
+        run: |
+          python - <<'PYTEST'
+          import json, os
+          from pathlib import Path
+          r=json.loads(Path('reports/hyderabad_cpcb_spatial_temporal_2024.json').read_text())
+          assert r['data_provenance']['kind']=='xkdr_historical_cpcb_observations'
+          assert r['train_date_end'] < r['test_date_start']
+          assert r['heldout_stations'] and r['training_rows'] and r['test_rows']
+          b=r['results']['network_previous_day']['mae']
+          m=r['results']['random_forest_unseen_station']['mae']
+          summary=(
+              '## Historical 2024 Hyderabad unseen-station holdout (not live OpenAQ)\n\n'
+              f"Training stations: {r['train_station_count']} | Held-out stations: {len(r['heldout_stations'])}.\n\n"
+              f"Train through: {r['train_date_end']}; test: {r['test_date_start']}–{r['test_date_end']}.\n\n"
+              f"Previous-day network baseline MAE: **{b:.4f} µg/m³**; "
+              f"Random Forest MAE: **{m:.4f} µg/m³**.\n\n"
+              'This evaluates historical unseen-station predictions only; current and prospective forecasts are unverified.\n'
+          )
+          print(summary)
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a',encoding='utf8') as f: f.write(summary)
+          PYTEST
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hyderabad-spatial-temporal-evaluation-2024
+          path: reports/hyderabad_cpcb_spatial_temporal_2024.json
+          retention-days: 30
