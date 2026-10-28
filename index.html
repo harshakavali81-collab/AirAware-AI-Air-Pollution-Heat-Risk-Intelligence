@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Interactive synthetic-data demo for AirAware AI environmental intelligence dashboard. Not real air quality or weather.">
+<meta name="theme-color" content="#080808"><title>AirAware AI | Interactive Synthetic Demo</title>
+<style>
+:root{--bg:#081923;--side:#09252c;--panel:#102b34;--line:#27515a;--mint:#66ecc1;--muted:#93b0b8;--amber:#eec17c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#e9f9f4;font:14px/1.5 system-ui,"Segoe UI",sans-serif}a{color:var(--mint)}button,select{font:inherit}button{cursor:pointer}a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--mint);outline-offset:3px}.app{display:flex;min-height:100vh}.side{width:233px;background:var(--side);border-right:1px solid var(--line);padding:30px 20px;flex-shrink:0}.brand{font-size:23px;letter-spacing:-.05em;font-weight:900}.brand em{color:var(--mint);font-style:normal}.brand small{display:block;letter-spacing:2px;font-size:9px;color:#8db0b9;margin:4px 0 66px}.nav{display:block;border-radius:10px;background:#17433e;border:1px solid #2b7561;color:var(--mint);padding:13px 14px;margin-bottom:9px;text-decoration:none}.nav.secondary{background:transparent;color:#b4cacc;border-color:transparent}.side .foot{border-top:1px solid var(--line);margin-top:60px;padding-top:20px;color:#95aeb3;font-size:12px}.content{max-width:1480px;width:calc(100% - 233px);margin:auto}.topbar{border-bottom:1px solid var(--line);padding:20px 44px;display:flex;justify-content:space-between;align-items:center;gap:20px}.eyebrow{color:var(--mint);font-size:10px;letter-spacing:1.7px;font-weight:800}.city{background:#183b42;border:1px solid #3c6568;border-radius:9px;padding:10px 12px;color:#e5faf6}.main{padding:37px 44px 45px}.title{display:flex;justify-content:space-between;align-items:center;gap:20px}.title h1{font-size:clamp(28px,4.5vw,48px);line-height:1.1;letter-spacing:-.05em;margin:13px 0 10px}.title h1 span{color:var(--mint)}.title p{color:#8fb2bb;margin:0;font-size:13px}.globe{display:grid;place-items:center;width:95px;height:95px;flex-shrink:0;background:radial-gradient(circle,#2c6b5c,#10343b);border-radius:24px;border:1px solid #396a63;color:#93ffcc;font-size:54px}.warning{background:#2e302a;border:1px solid #a7824b;border-radius:11px;padding:13px 18px;color:#f5d8a6;font-size:12px;margin:26px 0 19px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.metric,.panel{border:1px solid var(--line);border-radius:15px;background:var(--panel)}.metric{padding:21px}.metric .name{font-size:11px;color:#a5bdc2;font-weight:700}.metric .number{font-size:32px;font-weight:800;letter-spacing:-1.4px;margin:14px 0 6px}.metric .number em{font-size:12px;font-weight:500;font-style:normal;color:#a9c8cb;margin-left:5px}.metric .detail{font-size:10px;color:#81a4aa}.grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(290px,1fr);gap:18px;margin-top:18px}.panel{padding:24px}.panel-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.panel h2{font-size:20px;letter-spacing:-.03em;margin:4px 0}.tools{display:flex;gap:5px}.tools button{border:1px solid #345962;color:#9ab5bb;border-radius:7px;padding:7px 10px;background:#163840;font-size:11px}.tools button.active{background:#3ce1ad;border-color:#3ce1ad;color:#092d29;font-weight:800}.legend{color:#88b6b8;display:flex;gap:18px;font-size:11px}.legend i{display:inline-block;width:8px;height:8px;background:var(--mint);border-radius:99px;margin-right:6px}.legend i.forecast{background:var(--amber)}svg.graph{display:block;width:100%;height:auto;margin:10px 0 6px}.annotation{font-size:11px;line-height:1.7;color:#8faab2}.day-list{padding:0;list-style:none;margin:14px 0}.day-list li{display:flex;justify-content:space-between;border-bottom:1px solid #27505a;padding:12px 0;gap:9px;font-size:12px}.day-list li span{color:#99b7bd}.day-list strong{color:#66e2b7}.line{display:flex;justify-content:space-between;border-bottom:1px solid #27505a;padding:15px 0;font-size:12px}.line span{color:#91aeb8}.line strong{color:#f0f9f6}.band{display:inline-block;background:#284b44;border:1px solid #427963;padding:5px 11px;border-radius:100px;color:#8df1ce;font-size:11px}.smallgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:18px}.sitegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.site{background:#15363e;border:1px solid #2e515a;border-radius:12px;padding:17px}.site b{font-size:12px}.site p{color:#9ab6ba;font-size:10px}.site strong{color:#70e8c0;font-size:20px}.site strong span{font-size:10px;color:#9db8bb}.gauge{height:11px;border-radius:20px;background:#26474f;margin:15px 0;overflow:hidden}.gauge>div{height:100%;width:94%;background:linear-gradient(90deg,#7dedc0,#65bdd3);border-radius:20px}.cta{display:inline-block;text-decoration:none;background:var(--mint);color:#092d2e;font-weight:800;padding:12px 16px;border-radius:9px;margin-top:22px;font-size:12px}.footer{border-top:1px solid var(--line);color:#7da2a9;font-size:10px;margin-top:28px;padding-top:17px;display:flex;justify-content:space-between;gap:12px}.loading{min-height:60px}@media(max-width:1150px){.metrics{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}@media(max-width:800px){.side{display:none}.content{width:100%}.topbar{padding:16px 20px}.main{padding:25px 18px}.globe{display:none}}@media(max-width:530px){.metrics,.smallgrid,.sitegrid{grid-template-columns:1fr}.panel{padding:18px}.title h1{font-size:28px}.topbar{flex-wrap:wrap}}
+</style><link rel="stylesheet" href="assets/luxury-theme.css"></head><body><div class="app">
+<aside class="side"><div class="brand">AirAware <em>AI</em><small>ENVIRONMENTAL INTELLIGENCE</small></div>
+<a class="nav" href="#overview">▣ &nbsp; Overview dashboard</a><a class="nav secondary" href="#stations">◉ &nbsp; Synthetic sites</a><a class="nav secondary" href="#quality">✓ &nbsp; Data quality</a><a class="nav secondary" href="https://harshakavali81-collab.github.io/harshavardhan-portfolio/airaware.html">↗ &nbsp; Project case study</a>
+<div class="foot"><p><strong>LOCAL EDUCATIONAL DEMO</strong></p><p>No server, OpenAQ API key, or JavaScript framework is required for this preview.</p><a href="https://github.com/harshakavali81-collab/harshavardhan-portfolio/tree/main/projects/AirAware-AI" target="_blank" rel="noreferrer">Source on GitHub ↗</a></div></aside>
+<div class="content"><header class="topbar"><span class="eyebrow">PUBLIC INTEREST DATA / EXPLORATION CONSOLE</span><label>City <select class="city" id="city" aria-label="Select synthetic city"><option>Hyderabad</option><option>Delhi</option><option>Mumbai</option><option>Bengaluru</option><option>Chennai</option></select></label></header>
+<main class="main" id="overview"><div class="title"><div><div class="eyebrow">UNDERSTAND YOUR ATMOSPHERE · DEMO</div><h1>Data you can <span>breathe through.</span></h1><p>Clear pollution signals, transparent limitations, and reproducible synthetic examples.</p></div><div class="globe" aria-hidden="true">◉</div></div>
+<div class="warning"><strong>SIMULATED DATA ONLY</strong> — All concentrations, temperatures, city summaries and monitoring sites below are generated examples. None are real conditions, public-health advice or official air-quality forecasts.</div>
+<section class="metrics" aria-label="Synthetic indicators">
+<article class="metric"><div class="name">PM2.5 · LAST SYNTHETIC DAY</div><div class="number" id="pm">—</div><div class="detail">City-level synthetic daily mean, not AQI</div></article>
+<article class="metric"><div class="name">APPARENT TEMPERATURE</div><div class="number" id="heat">—</div><div class="detail" id="heatband">Illustrative heat band only</div></article>
+<article class="metric"><div class="name">RELATIVE HUMIDITY</div><div class="number" id="humidity">—</div><div class="detail">Fabricated weather example</div></article>
+<article class="metric"><div class="name">REPORTING POINTS</div><div class="number">03 <em>synthetic</em></div><div class="detail">No real sensor coordinates</div></article></section>
+<div class="grid">
+<section class="panel"><div class="panel-title"><div><span class="eyebrow">01 / DAILY HISTORY</span><h2>Pollution trends</h2></div><div class="tools"><button data-days="7">7D</button><button data-days="30" class="active">30D</button><button data-days="90">90D</button></div></div>
+<div class="legend"><span><i></i>Historical synthetic mean</span><span><i class="forecast"></i>Baseline projection</span></div><svg id="chart" class="graph" viewBox="0 0 900 330" role="img" aria-label="Synthetic PM2.5 time-series chart"></svg>
+<p class="annotation">Daily synthetic concentration in µg/m³. Dashed future values use an untrained last-day persistence baseline, not validated predictive intelligence.</p></section>
+<section class="panel"><div class="panel-title"><div><span class="eyebrow">02 / FORECAST</span><h2>Next 7 days</h2></div><span class="band">Untrained baseline</span></div><ul class="day-list" id="forecasts"></ul><p class="annotation">These are forecast-labeled future values, not measured readings. Weather impacts and uncertainty are not modeled.</p></section>
+</div>
+<div class="smallgrid">
+<section class="panel" id="stations"><div class="panel-title"><div><span class="eyebrow">03 / SYNTHETIC COVERAGE</span><h2>Station comparison</h2></div></div><div class="sitegrid" id="stations-content"></div><p class="annotation">Synthetic point names and values. No actual monitoring station locations are represented.</p></section>
+<section class="panel" id="quality"><div class="panel-title"><div><span class="eyebrow">04 / DATA QUALITY</span><h2>Transparency indicators</h2></div></div>
+<div class="line"><span>Source mode</span><strong>Simulated demo</strong></div><div class="line"><span>Expected station-day coverage</span><strong id="coverage">—</strong></div><div class="gauge"><div id="coveragebar"></div></div><div class="line"><span>Measurement units</span><strong>µg/m³</strong></div><div class="line"><span>Real-world validation</span><strong>Not performed</strong></div><p class="annotation">Coverage is the number of generated station-days out of possible synthetic station-days in this 90-day sample.</p></section></div>
+<a class="cta" href="https://harshakavali81-collab.github.io/harshavardhan-portfolio/airaware.html">Read full case study ↗</a> <a class="cta" style="background:#21444c;color:#d7f9f0;margin-left:8px" target="_blank" rel="noreferrer" href="https://github.com/harshakavali81-collab/harshavardhan-portfolio/tree/main/projects/AirAware-AI">Browse source ↗</a>
+<footer class="footer"><span>AirAware AI · Educational synthetic demo</span><span>Not a measurement service, health tool, or government warning.</span></footer>
+</main></div></div>
+<script>
+(function(){
+  'use strict';
+  const cityBase={Hyderabad:27,Delhi:63,Mumbai:31,Bengaluru:22,Chennai:26};
+  const temperature={Hyderabad:35.1,Delhi:31.8,Mumbai:33.2,Bengaluru:29.1,Chennai:37.7};
+  const htmlEscape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  let days=30;
+  const dateLabel=daysBack=>{const x=new Date();x.setUTCHours(0,0,0,0);x.setUTCDate(x.getUTCDate()-daysBack);return x.toISOString().slice(0,10);};
+  function readings(city){
+    const base=cityBase[city], seed=[...city].reduce((a,c)=>a+c.charCodeAt(0),0);
+    return Array.from({length:90},(_,i)=>{
+      const sites=Array.from({length:3},(_,s)=>({
+        present:(i*7+s*11+seed)%37!==0,
+        value:Math.max(2,base+8*Math.cos(i/7.16)+s*5+4*Math.sin(i/6)+4.8*Math.sin(i*1.82+s*1.67+seed))
+      }));
+      const values=sites.filter(s=>s.present).map(s=>s.value);
+      return {day:dateLabel(90-i),mean:values.reduce((a,b)=>a+b,0)/values.length,sites};
+    });
+  }
+  function chart(rows){
+    const svg=document.getElementById('chart'),values=rows.map(x=>x.mean);
+    const max=Math.max(45,...values)*1.15, min=0, left=38, right=870, top=30, bottom=277;
+    const X=i=>left+(right-left)*i/(values.length+7-1);
+    const Y=v=>bottom-(v-min)/(max-min)*(bottom-top);
+    const path=values.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)).join(' ');
+    const f=Array.from({length:8},(_,i)=>(i?'L':'M')+X(values.length-1+i).toFixed(1)+' '+Y(values[values.length-1]).toFixed(1)).join(' ');
+    const grid=[0,1,2,3,4].map(i=>{const v=max*i/4,y=Y(v);return '<path d="M'+left+' '+y+'H'+right+'" stroke="#32525b" stroke-dasharray="4 9"/><text x="3" y="'+(y+5)+'" fill="#92b3b9" font-size="16">'+Math.round(v)+'</text>';}).join('');
+    svg.innerHTML='<defs><linearGradient id="grad" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#57e5b4" stop-opacity=".29"/><stop offset="1" stop-color="#57e5b4" stop-opacity="0"/></linearGradient></defs>'+grid+
+      '<path d="'+path+'L'+X(values.length-1)+' '+bottom+'L'+left+' '+bottom+'Z" fill="url(#grad)"/>'+
+      '<path d="'+path+'" fill="none" stroke="#66efc3" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>'+
+      '<path d="'+f+'" fill="none" stroke="#eec17c" stroke-dasharray="11 7" stroke-width="4"/>'+
+      '<text x="'+left+'" y="315" font-size="15" fill="#9ebabe">'+rows[0].day+'</text><text x="750" y="315" font-size="15" fill="#9ebabe">PROJECTED →</text>';
+  }
+  function render(){
+    const city=document.getElementById('city').value,all=readings(city),rows=all.slice(-days),latest=all[all.length-1];
+    const heat=temperature[city];document.getElementById('pm').innerHTML=latest.mean.toFixed(1)+'<em>µg/m³</em>';
+    document.getElementById('heat').innerHTML=heat.toFixed(1)+'<em>°C</em>';
+    document.getElementById('humidity').innerHTML=(48+city.length%4*7)+'<em>%</em>';
+    document.getElementById('heatband').textContent=(heat>=40?'Very high':heat>=32?'High':heat>=27?'Elevated':'Lower')+' · illustrative band, not a medical alert';
+    chart(rows);
+    const last=latest.mean.toFixed(1);
+    document.getElementById('forecasts').innerHTML=Array.from({length:7},(_,i)=>'<li><span>'+dateLabel(-(i+1))+'</span><strong>'+last+' µg/m³ <small>forecast</small></strong></li>').join('');
+    document.getElementById('stations-content').innerHTML=latest.sites.map((s,i)=>'<div class="site"><b>DEMO POINT '+(i+1)+'</b><p>Synthetic · No real sensor</p><strong>'+(s.present?s.value.toFixed(1):'—')+' <span>µg/m³</span></strong></div>').join('');
+    const observed=all.reduce((sum,d)=>sum+d.sites.filter(s=>s.present).length,0),pct=100*observed/(90*3);
+    document.getElementById('coverage').textContent=pct.toFixed(1)+'%';
+    document.getElementById('coveragebar').style.width=pct.toFixed(1)+'%';
+  }
+  document.getElementById('city').addEventListener('change',render);
+  document.querySelectorAll('[data-days]').forEach(b=>b.addEventListener('click',()=>{days=Number(b.dataset.days);document.querySelectorAll('[data-days]').forEach(t=>t.classList.toggle('active',t===b));render();}));
+  render();
+}());
+</script></body></html>
