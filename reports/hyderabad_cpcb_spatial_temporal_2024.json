@@ -1,0 +1,102 @@
+{
+  "evaluation_kind": "historical_2024_unseen_station_future_window_exploratory",
+  "data_scope": "Hyderabad, India, 2024 daily observed PM2.5 from XKDR/CPCB",
+  "units": "µg/m³",
+  "training_cutoff_exclusive": "2024-10-01",
+  "train_station_count": 12,
+  "heldout_stations": [
+    "site_5595",
+    "site_199",
+    "DS1010005"
+  ],
+  "holdout_rule": "SHA256-rank station IDs with >=35 future-day readings; first floor(n/5), minimum one",
+  "training_rows": 2949,
+  "test_rows": 261,
+  "train_date_end": "2024-09-30",
+  "test_date_start": "2024-10-01",
+  "test_date_end": "2024-12-31",
+  "predictor_description": "previous calendar day mean of training stations only, plus known day-of-year phase",
+  "reference_baseline": "previous calendar day mean of training stations only",
+  "results": {
+    "network_previous_day": {
+      "mae": 15.9708,
+      "rmse": 22.4172,
+      "n": 261
+    },
+    "random_forest_unseen_station": {
+      "mae": 16.269,
+      "rmse": 23.1299,
+      "n": 261
+    }
+  },
+  "per_station": {
+    "site_5595": {
+      "network_previous_day": {
+        "mae": 11.946,
+        "rmse": 15.214,
+        "n": 92
+      },
+      "random_forest_unseen_station": {
+        "mae": 10.8649,
+        "rmse": 14.5622,
+        "n": 92
+      }
+    },
+    "site_199": {
+      "network_previous_day": {
+        "mae": 10.2721,
+        "rmse": 12.6791,
+        "n": 88
+      },
+      "random_forest_unseen_station": {
+        "mae": 10.9818,
+        "rmse": 13.2083,
+        "n": 88
+      }
+    },
+    "DS1010005": {
+      "network_previous_day": {
+        "mae": 26.7333,
+        "rmse": 34.3761,
+        "n": 81
+      },
+      "random_forest_unseen_station": {
+        "mae": 28.1512,
+        "rmse": 35.9649,
+        "n": 81
+      }
+    }
+  },
+  "candidate_beats_baseline": false,
+  "verification": "observed_historical_backtest_not_external_operational_validation",
+  "limitations": [
+    "No future 2026 measurements; not OpenAQ; cannot certify a live India forecasting service.",
+    "Spatial holdout is deterministic but station coverage eligibility uses availability of test period only.",
+    "Lagged network mean includes training-station measurements from test dates (available at prediction date -1); no test-station values.",
+    "This is a station-level prediction task, not the city-average task used in the original rolling-origin benchmark.",
+    "One season and one metro cannot prove safe operational forecasts, future transfer or calibration.",
+    "Station calibration, source licensing and independent epidemiological validity have not been independently audited."
+  ],
+  "data_provenance": {
+    "kind": "xkdr_historical_cpcb_observations",
+    "source": "https://github.com/xKDR/Air-Quality-Database",
+    "sha256_download": "52e44b2ac03a979217a137fdab66e3a47f898e061bf88d8ccb5a842d8784a039",
+    "provider_headers": {
+      "row_count_header": "5088",
+      "truncated_header": "false"
+    },
+    "input_metadata": {
+      "provider_daily_rows": 5088,
+      "valid_daily_station_rows": 5088,
+      "duplicate_station_dates_deduplicated": 0,
+      "stations": 15,
+      "first_date": "2024-01-01",
+      "last_date": "2024-12-31",
+      "days_with_observations": 366,
+      "source_units": [
+        "µg/m³"
+      ]
+    }
+  },
+  "evaluated_at_utc": "2026-10-28T09:12:16.262812+00:00"
+}
